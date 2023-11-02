@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="pnlPrincipal" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.borgesnotas.view.BorgesAppGuiController">
+    <children>
+        <SplitPane fx:id="pnlSplitPlane" dividerPositions="0.5" focusTraversable="true" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane fx:id="pnlTopPart" prefHeight="350.0" prefWidth="704.0">
+                    <children>
+                        <Label fx:id="lblConfirDanfe" alignment="CENTER" contentDisplay="CENTER" layoutX="303.0" layoutY="143.0" prefHeight="17.0" prefWidth="137.0" text="Chave Inválida" textAlignment="CENTER" textFill="RED" visible="false">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                        <TextField fx:id="txtName" layoutX="8.0" layoutY="25.0" prefHeight="25.0" prefWidth="174.0" promptText="Seu Nome" />
+                        <Label fx:id="lblLoja" layoutX="361.0" layoutY="6.0" text="Loja" textAlignment="CENTER" textFill="#646464" textOverrun="LEADING_WORD_ELLIPSIS" />
+                        <ComboBox fx:id="cbLoja" layoutX="284.0" layoutY="25.0" prefHeight="25.0" prefWidth="174.0" />
+                        <Label fx:id="lblDate" layoutX="546.0" layoutY="6.0" text="Data de chegada na Loja" textFill="#646464" />
+                        <DatePicker fx:id="dtDatePicker" layoutX="525.0" layoutY="25.0" />
+                        <Label fx:id="lblMarca" layoutX="355.0" layoutY="55.0" text="Marca" textFill="#646464" />
+                        <ComboBox fx:id="cbMarca" layoutX="284.0" layoutY="72.0" prefHeight="25.0" prefWidth="174.0" />
+                        <Label fx:id="lblChaveDanfe" alignment="CENTER" layoutX="14.0" layoutY="84.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Chave Danfe" textAlignment="CENTER" textFill="#646464" wrapText="false">
+                            <font>
+                                <Font size="18.0" fx:id="x1" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="txtChaveDanfe" alignment="CENTER" focusTraversable="false" layoutX="14.0" layoutY="107.0"  prefHeight="27.0" prefWidth="690.0" promptText="digite a chave danfe">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </TextField>
+                        <CheckBox fx:id="checkDanfe" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" text="Não consegui escanear o codigo de barras" textFill="#9f9f9f" />
+                        <Button fx:id="btnConfirm" layoutX="232.0" layoutY="174.0" mnemonicParsing="false" onAction="#confirmEnvio" prefHeight="25.0" prefWidth="280.0" text="Confirmar" />
+                        <Button fx:id="btnClear" layoutX="630.0" layoutY="175.0" mnemonicParsing="false" text="Limpar" />
+                    </children>
+                </AnchorPane>
+                <HBox id="HBox" fx:id="pnlBottom" alignment="CENTER_LEFT" prefHeight="174.0" prefWidth="704.0" spacing="5.0">
+                    <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                    </padding>
+                </HBox>
+            </items>
+        </SplitPane>
+    </children>
+</VBox>
