@@ -1,7 +1,12 @@
 package com.borgesnotas;
 
 public class Application {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+    private void teste() {
+
+        System.out.println("TESTE");
+
     }
+
+
 }
