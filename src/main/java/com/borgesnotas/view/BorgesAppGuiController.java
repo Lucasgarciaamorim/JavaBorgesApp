@@ -1,6 +1,5 @@
 package com.borgesnotas.view;
 
-
 import com.borgesnotas.controller.SheetsQuickstart;
 import com.google.api.services.sheets.v4.Sheets;
 import javafx.event.ActionEvent;
@@ -14,14 +13,13 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static com.borgesnotas.controller.SheetsQuickstart.adicionarDadosFixos;
 
 public class BorgesAppGuiController extends BorgesAppGuiApplication {
-
-    private String numeroNota;
-    private String cnpjEmpresa;
 
 
     private SheetsQuickstart sheetsQuickstart;
@@ -100,10 +98,7 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
     private CheckBox checkDanfe;
 
     @FXML
-    void OnClickedConfirm(ActionEvent event) {
-
-
-    }
+    private TextField txtChaveDanfe;
 
 
     public BorgesAppGuiController() {
@@ -146,6 +141,8 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
         return false; // Chave inválida
     }
 
+    DatePicker datePicker = new DatePicker();
+
 
     @FXML
     void confirmEnvio(ActionEvent event) {
@@ -157,14 +154,30 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
             String chaveNFe = txtChaveDanfe.getText();
             String campoChaveNFe = "CHAVE DA NFE";
 
+
+            String Name = txtName.getText();
             String numeroNota = extractNFeNumber(chaveNFe);
             String cnpjEmpresa = extractCNPJ(chaveNFe);
 
-            if (numeroNota != null && cnpjEmpresa != null) {
-                adicionarDadosFixos(service, spreadsheetId, campoChaveNFe, chaveNFe, numeroNota, cnpjEmpresa);
-               
+            LocalDate selectedDate = dtDatePicker.getValue();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = selectedDate.format(formatter);
+
+
+            if (numeroNota != null && cnpjEmpresa != null && Name != null && formattedDate != null) {
+                adicionarDadosFixos(service,
+                        spreadsheetId,
+                        campoChaveNFe,
+                        chaveNFe,
+                        numeroNota,
+                        cnpjEmpresa,
+                        Name,
+                        formattedDate);
+
+
             } else {
-                // Trate o caso em que a extração de dados falha, por exemplo, exibindo uma mensagem de erro
+
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro de Extração de Dados");
                 alert.setHeaderText("Não foi possível extrair os dados da NFe");
@@ -177,27 +190,28 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
     }
 
     private String extractNFeNumber(String chave) {
-        // Implemente a extração do número da nota fiscal a partir da chave aqui
+
         if (chave.length() == 44 && chave.matches("\\d+")) {
             return chave.substring(25, 34);
         }
-        return null; // Retorne null se a extração falhar
+        return null;
     }
 
     private String extractCNPJ(String chave) {
-        // Implemente a extração do CNPJ da empresa a partir da chave aqui
+        if ("88379771004170".equals(chave)) {
+            return "MODARE";
+        }
+
         if (chave.length() == 44 && chave.matches("\\d+")) {
             return chave.substring(6, 20);
+
         }
-        return null; // Retorne null se a extração falhar
-
-
+        return null;
     }
-
 
     public static boolean onCloseQuery() {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Pergunta");
+        alerta.setTitle("Exit");
         alerta.setHeaderText("Deseja Sair?");
         ButtonType botaoNao = ButtonType.NO;
         ButtonType botaoSim = ButtonType.YES;
@@ -208,34 +222,4 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
 
     }
 
-    @FXML
-    private TextField txtChaveDanfe;
-
-//    @FXML
-//    void initialize() {
-//        // Adicione um ChangeListener ao TextField txtChaveDanfe
-//        txtChaveDanfe.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                // Este código será executado sempre que o valor de txtChaveDanfe for alterado
-//                System.out.println("Valor digitado: " + newValue);
-//                // Você pode realizar a validação da chave aqui
-//
-//            }
-//
-//
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

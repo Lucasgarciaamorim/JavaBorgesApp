@@ -79,7 +79,7 @@ public class SheetsQuickstart {
 
             }
 
-            adicionarDadosFixos(service, spreadsheetId, "CHAVE DA NFE", "ChaveNFE", "NOTA", "MARCA");
+            adicionarDadosFixos(service, spreadsheetId, "CHAVE DA NFE", "ChaveNFE", "NOTA", "MARCA", "Name", "formattedDate");
 
         }
 
@@ -125,25 +125,22 @@ public class SheetsQuickstart {
         return newID; // Retorna o novo valor do ID
     }
 
-    public static void adicionarDadosFixos(Sheets service, String spreadsheetId, String campoChaveNFe, String chaveNFe, String numeroNota, String cnpjEmpresa) throws IOException {
+    public static void adicionarDadosFixos(Sheets service, String spreadsheetId, String campoChaveNFe, String chaveNFe, String numeroNota, String cnpjEmpresa, String name, String formattedDate) throws IOException {
 
         int currentID = incrementAndReturnID(service, spreadsheetId, "A2827");
         ValueRange body = new ValueRange()
                 .setValues(List.of(
                         Arrays.asList(
                                 currentID,
-                                "CARIMBO DATA/HORA",
-                                "EMISSAO",
-                                "VENC", "VEN N",
-                                "DATA DE CHEGADA",
-                                "ATRASO TL",
-                                "EM DIAS",
+                                formattedDate,
+                                "",
+                                "",
                                 chaveNFe,
                                 numeroNota,
-                                "PEDIDO",
+                                "x",
                                 cnpjEmpresa,
-                                "MARCA",
-                                "NÃO")
+                                "NÃO",
+                                name)
                 ));
 
         try {
