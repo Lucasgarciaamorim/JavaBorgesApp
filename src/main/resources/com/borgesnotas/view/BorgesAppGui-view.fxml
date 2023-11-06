@@ -38,7 +38,7 @@
                                 <Font size="18.0" fx:id="x1" />
                             </font>
                         </Label>
-                        <TextField fx:id="txtChaveDanfe" alignment="CENTER" disable="true" editable="false" focusTraversable="false" layoutX="14.0" layoutY="107.0" prefHeight="27.0" prefWidth="690.0" promptText="digite a chave danfe">
+                        <TextField fx:id="txtChaveDanfe" alignment="CENTER"  focusTraversable="false" layoutX="14.0" layoutY="107.0" prefHeight="27.0" prefWidth="690.0" promptText="digite a chave danfe">
                             <font>
                                 <Font size="15.0" />
                             </font>

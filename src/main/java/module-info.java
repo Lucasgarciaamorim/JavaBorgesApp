@@ -8,7 +8,7 @@ module com.borgesnotas.view {
     requires com.google.api.client;
     requires com.google.api.client.json.gson;
     requires com.google.api.services.sheets;
-    requires org.controlsfx.controls;
+
 
 
     opens com.borgesnotas to javafx.fxml;
