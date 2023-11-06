@@ -10,6 +10,7 @@ module com.borgesnotas.view {
     requires com.google.api.services.sheets;
 
 
+
     opens com.borgesnotas to javafx.fxml;
     exports com.borgesnotas;
     exports com.borgesnotas.view;
