@@ -19,9 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import static com.borgesnotas.view.BorgesAppGuiController.incrementAndReturnID;
 
 @SuppressWarnings("ALL")
 public class SheetsQuickstart {
@@ -29,7 +32,6 @@ public class SheetsQuickstart {
     private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
-
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
@@ -82,13 +84,12 @@ public class SheetsQuickstart {
 
             adicionarDadosFixos(service,
                     spreadsheetId,
-                    "CHAVE DA NFE",
                     "ChaveNFE",
                     "NOTA",
                     "MARCA",
                     "Name",
                     "formattedDate",
-                    "lojaSelecionada", "formattedDateEmissao");
+                    "lojaSelecionada", "formattedDateEmissao", Long.parseLong("diffEmDays"));
 
         }
     }
@@ -110,33 +111,15 @@ public class SheetsQuickstart {
                 .build();
     }
 
-    public static int incrementAndReturnID(Sheets service, String spreadsheetId, String range) throws IOException {
-        ValueRange response = service.spreadsheets().values().get(spreadsheetId, range).execute();
-        List<List<Object>> values = response.getValues();
-
-        int currentID = 0;
-        if (values != null && !values.isEmpty() && values.get(0) != null && !values.get(0).isEmpty()) {
-            currentID = Integer.parseInt(values.get(0).get(0).toString());
-        }
-
-        int newID = currentID + 1;
-
-        ValueRange idUpdate = new ValueRange().setValues(List.of(List.of(newID)));
-        service.spreadsheets().values().update(spreadsheetId, range, idUpdate)
-                .setValueInputOption("RAW")
-                .execute();
-
-        return newID;
-    }
 
     public static void adicionarDadosFixos(Sheets service,
                                            String spreadsheetId,
-                                           String campoChaveNFe,
                                            String chaveNFe,
                                            String numeroNota,
                                            String name,
                                            String formattedDate, String marcaSelecionada,
-                                           String lojaSelecionada, String formattedDateEmissao) throws IOException {
+                                           String lojaSelecionada, String formattedDateEmissao,
+                                           long diffEmDias) throws IOException {
 
         int currentID = incrementAndReturnID(service, spreadsheetId, "A2827");
         ValueRange body = new ValueRange()
@@ -145,7 +128,7 @@ public class SheetsQuickstart {
                                 currentID,
                                 formattedDateEmissao,
                                 formattedDate,
-                                "",
+                                diffEmDias,
                                 chaveNFe,
                                 numeroNota,
                                 "x",

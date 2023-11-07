@@ -25,9 +25,15 @@
                         <Font size="16.0" />
                      </font></Label>
                         <Label fx:id="lblLoja" layoutX="361.0" layoutY="6.0" text="Loja" textAlignment="CENTER" textFill="#646464" textOverrun="LEADING_WORD_ELLIPSIS" />
-                        <ComboBox fx:id="cbLoja" layoutX="284.0" layoutY="25.0" prefHeight="25.0" prefWidth="174.0" promptText="     Selecione a Loja" />
-                        <Label fx:id="lblDate" layoutX="36.0" layoutY="6.0" text="Data de chegada na Loja" textFill="#646464" />
-                        <DatePicker fx:id="dtDatePicker" accessibleRole="IMAGE_VIEW" layoutX="14.0" layoutY="25.0" />
+                        <ComboBox fx:id="cbLoja" layoutX="284.0" layoutY="25.0" prefHeight="25.0" prefWidth="174.0" promptText="     Selecione a Loja">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></ComboBox>
+                        <Label fx:id="lblDate" layoutX="538.0" layoutY="6.0" text="Data de chegada na Loja" textFill="#646464" />
+                        <DatePicker fx:id="dtDatePicker" accessibleRole="IMAGE_VIEW" layoutX="516.0" layoutY="25.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
                         <Label fx:id="lblMarca" layoutX="355.0" layoutY="55.0" text="Marca" textFill="#646464" />
                         <ComboBox fx:id="cbMarca" layoutX="284.0" layoutY="72.0" prefHeight="25.0" prefWidth="174.0" promptText="     Selecione uma marca">
                      <cursor>
@@ -38,17 +44,29 @@
                                 <Font size="18.0" fx:id="x1" />
                             </font>
                         </Label>
-                        <TextField fx:id="txtChaveDanfe" alignment="CENTER"  focusTraversable="false" layoutX="14.0" layoutY="107.0" prefHeight="27.0" prefWidth="690.0" promptText="digite a chave danfe">
+                        <TextField fx:id="txtChaveDanfe" alignment="CENTER" focusTraversable="false" layoutX="14.0" layoutY="107.0" prefHeight="27.0" prefWidth="690.0" promptText="digite a chave danfe">
                             <font>
                                 <Font size="15.0" />
                             </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
                         </TextField>
                         <CheckBox fx:id="checkDanfe" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" text="Não consegui escanear o codigo de barras" textFill="#9f9f9f" />
-                        <Button fx:id="btnConfirm" layoutX="232.0" layoutY="174.0" mnemonicParsing="false" onAction="#confirmEnvio" prefHeight="25.0" prefWidth="280.0" text="Confirmar" />
+                        <Button fx:id="btnConfirm" layoutX="232.0" layoutY="174.0" mnemonicParsing="false" onAction="#confirmEnvio" prefHeight="25.0" prefWidth="280.0" text="Confirmar">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                         <Button fx:id="btnClear" layoutX="630.0" layoutY="175.0" mnemonicParsing="false" text="Limpar" />
-                  <DatePicker fx:id="dtDatePickerEmissao" layoutX="516.0" layoutY="25.0" />
-                  <Label layoutX="536.0" layoutY="6.0" text="Data de Emissão da Nota" textFill="#646464" />
-                        <TextField fx:id="txtName" layoutX="15.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" promptText="Seu Nome" />
+                  <DatePicker fx:id="dtDatePickerEmissao" layoutX="15.0" layoutY="25.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></DatePicker>
+                  <Label layoutX="35.0" layoutY="6.0" text="Data de Emissão da Nota" textFill="#646464" />
+                        <TextField fx:id="txtName" layoutX="15.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" promptText="Seu Nome">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
                     </children>
                 </AnchorPane>
                 <HBox id="HBox" fx:id="pnlBottom" alignment="CENTER_LEFT" prefHeight="161.0" prefWidth="704.0" spacing="5.0">
