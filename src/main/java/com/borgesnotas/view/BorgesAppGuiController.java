@@ -2,6 +2,7 @@ package com.borgesnotas.view;
 
 import com.borgesnotas.controller.SheetsQuickstart;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.model.ValueRange;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Optional;
 
 import static com.borgesnotas.controller.SheetsQuickstart.adicionarDadosFixos;
@@ -37,10 +40,6 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
     @FXML
     private DatePicker dtDatePickerEmissao;
 
-
-    @FXML
-    private Label lblDetailNumberNota;
-
     @FXML
     private TextField txtName;
 
@@ -53,14 +52,16 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
     @FXML
     private Button btnClear;
 
-    @FXML
-    private Label lblDetailLoja;
 
     @FXML
     private Button btnConfirm;
 
     @FXML
+    private Label lblDetailLoja;
+    @FXML
     private Label lblDetailDataEmissao;
+    @FXML
+    private Label lblDetailNumberNota;
 
     @FXML
     private Label lblName;
@@ -159,16 +160,43 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
             String spreadsheetId = sheetsQuickstart.getSpreadsheetId();
 
             String chaveNFe = txtChaveDanfe.getText();
-            String campoChaveNFe = "CHAVE DA NFE";
+            StringBuilder numeroNotaFiscal = new StringBuilder();
+            StringBuilder cnpjEmpresa = new StringBuilder();
+            if (!validateExtractNFeNumberAndCNPJ(chaveNFe, numeroNotaFiscal, cnpjEmpresa)) {
+                // Exibir uma mensagem de erro se a validação falhar
+                exibirAlerta("Chave da NFe inválida", "A chave da NFe é inválida. Verifique e tente novamente.", Alert.AlertType.ERROR);
+                return;
+            }
+
             String marcaSelecionada = cbMarca.getValue();
+            if (marcaSelecionada == null) {
+                exibirAlerta("Verificação de Dados", "Por favor Selecione uma Marca", Alert.AlertType.ERROR);
+                return;
+            }
             String lojaSelecionada = cbLoja.getValue();
+            if (lojaSelecionada == null) {
+                exibirAlerta("Verificação de Dados", "Por favor, selecione uma Loja.", Alert.AlertType.ERROR);
+                return;
+            }
 
-
-            String Name = txtName.getText();
+            String Name = txtName.getText().trim();
+            if (Name.isEmpty()) {
+                exibirAlerta("Erro", "Nome em branco. Por favor, insira um nome.", Alert.AlertType.ERROR);
+                return;
+            }
             String numeroNota = extractNFeNumber(chaveNFe);
 
             LocalDate selectedDate = dtDatePicker.getValue();
+            if (selectedDate == null) {
+                exibirAlerta("Verificação de Dados ", "Por favor, Selecione a data de chegada corretamente", Alert.AlertType.ERROR);
+                return;
+            }
+
             LocalDate selectDateEmissao = dtDatePickerEmissao.getValue();
+            if (selectDateEmissao == null) {
+                exibirAlerta("Verificação de Dados ", "Por favor, Selecione a data de emissão corretamente", Alert.AlertType.ERROR);
+                return;
+            }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String formattedDate = selectedDate.format(formatter);
@@ -176,21 +204,18 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
             DateTimeFormatter formatterEmissao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String formattedDateEmissao = selectDateEmissao.format(formatterEmissao);
 
+            LocalDate data1 = LocalDate.parse(formattedDate, formatter);
+            LocalDate data2 = LocalDate.parse(formattedDateEmissao, formatterEmissao);
 
-            if (numeroNota != null && Name != null) {
-                adicionarDadosFixos(service,
-                        spreadsheetId,
-                        campoChaveNFe,
-                        chaveNFe,
-                        numeroNota,
-                        Name,
-                        formattedDate,
-                        marcaSelecionada,
-                        lojaSelecionada,
-                        formattedDateEmissao
+            long diffEmDias = ChronoUnit.DAYS.between(data2, data1);
+
+
+            if (numeroNota != null) {
+                adicionarDadosFixos(service, spreadsheetId, chaveNFe, numeroNota, Name,
+                        formattedDate, marcaSelecionada, lojaSelecionada, formattedDateEmissao, diffEmDias
                 );
-
                 txtChaveDanfe.clear();
+                txtChaveDanfe.requestFocus();
 
                 exibirAlerta("Nota enviada", "Os dados foram enviados com sucesso!", Alert.AlertType.INFORMATION);
             } else {
@@ -218,20 +243,8 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
     }
 
 
-    public static boolean onCloseQuery() {
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Exit");
-        alerta.setHeaderText("Deseja Sair?");
-        ButtonType botaoNao = ButtonType.NO;
-        ButtonType botaoSim = ButtonType.YES;
-        alerta.getButtonTypes().setAll(botaoSim, botaoNao);
-        Optional<ButtonType> opcaoClicada = alerta.showAndWait();
-
-        return opcaoClicada.get() == botaoSim;
-
-    }
-
     public void initialize() {
+
 
         ObservableList<String> marcaOptions = FXCollections.observableArrayList(
                 "ACTIVITA", "ADDAN", "AKAZZO", "AKAZZO(NEFESH)", "BEIRA RIO", "BLITZZ",
@@ -256,4 +269,38 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
 
 
     }
+
+
+    public static boolean onCloseQuery() {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Exit");
+        alerta.setHeaderText("Deseja Sair?");
+        ButtonType botaoNao = ButtonType.NO;
+        ButtonType botaoSim = ButtonType.YES;
+        alerta.getButtonTypes().setAll(botaoSim, botaoNao);
+        Optional<ButtonType> opcaoClicada = alerta.showAndWait();
+
+        return opcaoClicada.get() == botaoSim;
+
+    }
+
+    public static int incrementAndReturnID(Sheets service, String spreadsheetId, String range) throws IOException {
+        ValueRange response = service.spreadsheets().values().get(spreadsheetId, range).execute();
+        List<List<Object>> values = response.getValues();
+
+        int currentID = 0;
+        if (values != null && !values.isEmpty() && values.get(0) != null && !values.get(0).isEmpty()) {
+            currentID = Integer.parseInt(values.get(0).get(0).toString());
+        }
+
+        int newID = currentID + 1;
+
+        ValueRange idUpdate = new ValueRange().setValues(List.of(List.of(newID)));
+        service.spreadsheets().values().update(spreadsheetId, range, idUpdate)
+                .setValueInputOption("RAW")
+                .execute();
+
+        return newID;
+    }
+
 }
