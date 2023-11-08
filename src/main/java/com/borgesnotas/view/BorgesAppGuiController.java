@@ -29,6 +29,7 @@ public class BorgesAppGuiController extends BorgesAppGuiApplication {
 
 
     private final SheetsQuickstart sheetsQuickstart;
+    public Label lblConfirDanfe;
 
     @FXML
     private ComboBox<String> cbLoja;

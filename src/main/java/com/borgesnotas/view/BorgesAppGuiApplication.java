@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -19,6 +18,9 @@ public class BorgesAppGuiApplication extends Application {
     @Override
     public void start(Stage stage) {
         Scene splashScene = createSplashScene(stage);
+
+        String cssFile = Objects.requireNonNull(getClass().getResource("/com/borgesnotas/view/css/Style.css")).toExternalForm();
+        splashScene.getStylesheets().add(cssFile); // Adicione o arquivo CSS à cena
 
         stage.setScene(splashScene);
 
@@ -33,12 +35,9 @@ public class BorgesAppGuiApplication extends Application {
         root.getChildren().addAll(logoView);
         Scene splashScene = new Scene(root, 400, 200);
 
-
         Task<Void> initializationTask = new Task<Void>() {
             @Override
             protected Void call() {
-
-
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -49,7 +48,6 @@ public class BorgesAppGuiApplication extends Application {
         };
 
         initializationTask.setOnSucceeded(event -> {
-
             Platform.runLater(() -> loadMainScene(stage));
         });
 
@@ -60,15 +58,12 @@ public class BorgesAppGuiApplication extends Application {
 
     private void loadMainScene(Stage stage) {
         try {
-
             FXMLLoader fxmlLoader = new FXMLLoader(BorgesAppGuiApplication.class.getResource("BorgesAppGui-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-
 
             stage.setScene(scene);
             stage.resizableProperty().setValue(Boolean.FALSE);
             stage.setTitle("Envio de Nota Fiscal");
-
 
             stage.setOnCloseRequest(e -> {
                 if (BorgesAppGuiController.onCloseQuery()) {
