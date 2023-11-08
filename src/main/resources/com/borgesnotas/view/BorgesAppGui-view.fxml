@@ -25,17 +25,17 @@
                         <Font size="16.0" />
                      </font></Label>
                         <Label fx:id="lblLoja" layoutX="24.0" layoutY="24.0" text="Loja" textAlignment="CENTER" textFill="#646464" textOverrun="LEADING_WORD_ELLIPSIS" visible="false" />
-                        <ComboBox fx:id="cbLoja" layoutX="303.0" layoutY="118.0" prefHeight="21.0" prefWidth="155.0" promptText="     Selecione a Loja">
+                        <ComboBox fx:id="cbLoja" layoutX="84.0" layoutY="172.0" prefHeight="25.0" prefWidth="174.0" promptText="     Selecione a Loja" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="84.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ComboBox>
                         <Label fx:id="lblDate" layoutX="11.0" layoutY="24.0" text="Data de chegada na Loja" textFill="#646464" visible="false" />
-                        <DatePicker fx:id="dtDatePicker" accessibleRole="IMAGE_VIEW" layoutX="285.0" layoutY="51.0">
+                        <DatePicker fx:id="dtDatePicker" accessibleRole="IMAGE_VIEW" layoutX="361.0" layoutY="130.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></DatePicker>
                         <Label fx:id="lblMarca" layoutX="14.0" layoutY="15.0" text="Marca" textFill="#646464" visible="false" />
-                        <ComboBox fx:id="cbMarca" layoutX="303.0" layoutY="156.0" prefHeight="21.0" prefWidth="155.0" promptText="Selecione a marca">
+                        <ComboBox fx:id="cbMarca" layoutX="361.0" layoutY="172.0" prefHeight="25.0" prefWidth="174.0" promptText="Selecione a marca" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="361.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ComboBox>
@@ -44,7 +44,7 @@
                                 <Font size="18.0" fx:id="x1" />
                             </font>
                         </Label>
-                        <TextField fx:id="txtChaveDanfe" alignment="CENTER" focusTraversable="false" layoutX="77.0" layoutY="197.0" prefHeight="28.0" prefWidth="384.0" promptText="digite a chave danfe" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="191.0">
+                        <TextField fx:id="txtChaveDanfe" alignment="CENTER" focusTraversable="false" layoutX="89.0" layoutY="220.0" prefHeight="31.0" prefWidth="422.0" promptText="digite a chave danfe" AnchorPane.leftAnchor="89.0" AnchorPane.topAnchor="220.0">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -52,24 +52,24 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                         </TextField>
-                        <CheckBox fx:id="checkDanfe" layoutX="76.0" layoutY="228.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" textFill="#9f9f9f" AnchorPane.leftAnchor="73.0" AnchorPane.topAnchor="227.0" />
-                        <Button id="confirmar" fx:id="btnConfirm" layoutX="250.0" layoutY="273.0" mnemonicParsing="false" onAction="#confirmEnvio" prefHeight="28.0" prefWidth="105.0" styleClass="Confirmar" stylesheets="@css/Style.css" text="Confirmar" AnchorPane.bottomAnchor="93.0">
+                        <CheckBox fx:id="checkDanfe" layoutX="81.0" layoutY="258.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" textFill="#9f9f9f" AnchorPane.leftAnchor="81.0" AnchorPane.topAnchor="258.0" />
+                        <Button id="confirmar" fx:id="btnConfirm" layoutX="248.0" layoutY="304.0" mnemonicParsing="false" onAction="#confirmEnvio" prefHeight="28.0" prefWidth="105.0" styleClass="Confirmar" stylesheets="@css/Style.css" text="Confirmar" AnchorPane.bottomAnchor="66.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                        <Button fx:id="btnClear" layoutX="135.0" layoutY="273.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="105.0" style="-fx-background-radius: 30;" text="Limpar" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="131.0" />
-                  <DatePicker fx:id="dtDatePickerEmissao" layoutX="73.0" layoutY="156.0" prefHeight="25.0" prefWidth="152.0">
+                        <Button fx:id="btnClear" layoutX="132.0" layoutY="304.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="105.0" style="-fx-background-radius: 30;" text="Limpar" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="132.0" />
+                  <DatePicker fx:id="dtDatePickerEmissao" layoutX="85.0" layoutY="130.0" prefHeight="25.0" prefWidth="168.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></DatePicker>
                   <Label layoutX="35.0" layoutY="6.0" text="Data de Emissão da Nota" textFill="#646464" visible="false" />
-                        <TextField fx:id="txtName" layoutX="73.0" layoutY="118.0" prefHeight="25.0" prefWidth="152.0" promptText="Seu Nome">
+                        <TextField fx:id="txtName" layoutX="85.0" layoutY="85.0" prefHeight="25.0" prefWidth="168.0" promptText="Seu Nome">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor></TextField>
                   <ImageView fitHeight="401.0" fitWidth="708.0" layoutX="-2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" style="-fx-view-order: 999;">
                      <image>
-                        <Image url="@../../../images/backgroundImage.jpeg" />
+                        <Image url="@../../../images/backgroundImages.jpg" />
                      </image>
                   </ImageView>
                     </children>

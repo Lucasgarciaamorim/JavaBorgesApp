@@ -38,11 +38,7 @@ public class BorgesAppGuiApplication extends Application {
         Task<Void> initializationTask = new Task<Void>() {
             @Override
             protected Void call() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+
                 return null;
             }
         };
@@ -73,7 +69,7 @@ public class BorgesAppGuiApplication extends Application {
                 }
             });
         } catch (IOException e) {
-            // Lidar com exceções, se necessário
+
             e.printStackTrace();
         }
     }
